@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { RouterProvider, useNavigate } from "react-router-dom";
+import { router } from "./Route";
+import { SidebarProvider } from "./SidebarContext";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { auth } from "./firebase";
+import { setUser } from "./rtk/features/userSlice";
+const App = () => {
+  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
 
-function App() {
+  useEffect(() => {
+    auth.onAuthStateChanged((userAuth) => {
+      if (userAuth) {
+        dispatch(setUser(userAuth));
+      } else {
+        dispatch(setUser(null));
+      }
+      setLoading(false);
+    });
+  }, []);
+
+  if (loading) return <div>Loading...</div>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+    <SidebarProvider> <RouterProvider router={router} /></SidebarProvider>
 
+  );
+};
 export default App;
