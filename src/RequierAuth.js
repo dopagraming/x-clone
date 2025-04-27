@@ -21,7 +21,7 @@ const RequierAuth = ({ children }) => {
         }
     }, [user, loading, navigate]);
 
-    if (loading) return <div>Checking authentication...</div>;
+    if (loading) return <div>Loading...</div>;
 
     return children;
 };

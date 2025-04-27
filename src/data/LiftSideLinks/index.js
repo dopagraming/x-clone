@@ -158,7 +158,6 @@ export const postSetting = [
     iconName: FiHelpCircle
   },
 ]
-
 export const profileSetting = [
   {
     name: "dark",

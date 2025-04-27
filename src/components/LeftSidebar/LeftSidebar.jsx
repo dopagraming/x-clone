@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { auth } from "../../firebase";
 const LeftSidebar = () => {
   let user = useSelector((state) => state.user.user);
+  console.log(user);
   let mode = useSelector((state) => state.mode.mode);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -103,17 +104,13 @@ const LeftSidebar = () => {
             className="w-[30px] h-[30px] md:w-[50px] md:h-[50px] rounded-full m-auto xl:me-2"
           />
           <div>
-            <p className="hidden xl:block">{user?.name || "Palestinan"}</p>{" "}
-            <p className="hidden xl:block text-[#71767b] text-xs">
-              @{user?.username || "palestinan"}{" "}
+            <p className="hidden xl:block">
+              {user && `${user?.displayName}` ? `${user.displayName}` : "you"}
             </p>
           </div>
         </Link>
         <div className="relative">
-          <MdOutlineMoreHoriz
-            className="hidden xl:block pointer ml-2"
-            onClick={toggleDropdown}
-          />
+          <MdOutlineMoreHoriz className="hidden xl:block pointer ml-2" />
         </div>
       </div>
       <div className="flex flex-col xl:flex-row items-center justify-between mt-3">
